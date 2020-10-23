@@ -182,7 +182,7 @@ class SlurmJob(Job):
         # Check directories.
         for directory in [self.submit, self.output, self.error]:
             if directory is not None:
-                checkdir(directory, makedirs)
+                checkdir(os.path.join(directory,""), makedirs)
         name = self._get_fancyname() if fancyname else self.name
         submit_file = os.path.join(self.submit, "{}.submit".format(name))
         output_file = os.path.join(self.output, "{}.output".format(name))

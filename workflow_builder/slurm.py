@@ -27,7 +27,7 @@ class Slurm(Dagman):
         verbose: int
             Level of logging verbosity.
         """
-        super().__init__(name=name, submit=sumit, extra_lines, verbose=verbose)
+        super().__init__(name=name, submit=submit, extra_lines=extra_lines, verbose=verbose)
 
     def build(self, makedirs=True, fancyname=True):
         """Build slurm submit files.
@@ -72,7 +72,7 @@ class Slurm(Dagman):
             job_map = {self.nodes[i].name: i for i in range(len(self.nodes))}
             for i in range(len(self.nodes)):
                 self.nodes[i].build(makedirs, fancyname)
-                submit_str = "jid{i}=($(sbatch"
+                submit_str = "jid{}=($(sbatch".format(i)
                 # Get parents of the job.
                 parents = [job.name for job in self.nodes[i].parents]
                 if len(parents)>0:

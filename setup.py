@@ -8,5 +8,5 @@ setup(
     author="Isaac Chun Fung WONG",
     author_email="cfwong@link.cuhk.edu.hk",
     python_requires=">=3.5",
-    packages=find_pacakges()
+    packages=find_packages()
 )
