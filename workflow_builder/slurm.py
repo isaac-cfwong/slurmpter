@@ -48,7 +48,7 @@ class Slurm(Dagman):
             return self
 
         name = self._get_fancyname() if fancyname else self.name
-        submit_file = os.path.join(self.submit, '{}.sh'.format(name)) if self.submit is not None else '{}.sh'.format(name)
+        submit_file = os.path.join(self.submit, '{}.submit'.format(name)) if self.submit is not None else '{}.submit'.format(name)
         output_file = os.path.join(self.submit, "{}.output".format(name)) if self.submit is not None else '{}.output'.format(name)
         error_file = os.path.join(self.submit, "{}.error".format(name)) if self.submit is not None else '{}.error'.format(name)
         self.submit_file = submit_file

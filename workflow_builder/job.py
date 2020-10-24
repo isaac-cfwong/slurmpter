@@ -189,7 +189,7 @@ class SlurmJob(Job):
             if directory is not None:
                 checkdir(os.path.join(directory,""), makedirs)
         name = self._get_fancyname() if fancyname else self.name
-        submit_file = os.path.join(self.submit, "{}.sh".format(name)) if self.submit is not None else "{}.sh".format(name)
+        submit_file = os.path.join(self.submit, "{}.submit".format(name)) if self.submit is not None else "{}.submit".format(name)
         output_file = os.path.join(self.output, "{}.output".format(name)) if self.output is not None else "{}.output".format(name)
         error_file = os.path.join(self.error, "{}.error".format(name)) if self.error is not None else "{}.error".format(name)
         self.submit_file = submit_file
@@ -211,7 +211,7 @@ class SlurmJob(Job):
                 f.write("#SBATCH --mem={}\n".format(self._slurm_mem_per_node))
             if self._slurm_extra_sbatch_options is not None:
                 for option in self._slurm_extra_sbatch_options:
-                    f.write("SBATCH --{}\n".format(option))
+                    f.write("#SBATCH --{}\n".format(option))
             f.write("\n")
             if self._slurm_extra_lines is not None:
                 for extra_line in self._slurm_extra_lines:
