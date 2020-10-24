@@ -189,7 +189,7 @@ class SlurmJob(Job):
             if directory is not None:
                 checkdir(os.path.join(directory,""), makedirs)
         name = self._get_fancyname() if fancyname else self.name
-        submit_file = os.path.join(self.submit, "{}.submit".format(name))
+        submit_file = os.path.join(self.submit, "{}.sh".format(name))
         output_file = os.path.join(self.output, "{}.output".format(name))
         error_file = os.path.join(self.error, "{}.error".format(name))
         self.submit_file = submit_file
