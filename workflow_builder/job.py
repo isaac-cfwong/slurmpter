@@ -16,7 +16,8 @@ class SlurmJob(Job):
                  ntasks_per_node=None,
                  cpus_per_task=None,
                  mem_per_node=None,
-                 extra_options=None,
+                 extra_sbatch_options=None,
+                 extra_srun_options=None,
                  extra_lines=None,
                  modules=None,
                  slurm=None,
@@ -59,8 +60,11 @@ class SlurmJob(Job):
             <size[units]>
             Specify the real memory required per node.
 
-        extra_options: array-like str, optionl
-            An array of extra options to append after '--'.
+        extra_sbatch_options: array-like str, optionl
+            An array of extra options to append after '#SBATCH '.
+
+        extra_srun_option: array-like str, optional
+            An array of extra options to append after 'srun'.
 
         extra_lines: array-like str, optional
             An array of extra lines to add before srun.
@@ -84,7 +88,8 @@ class SlurmJob(Job):
         self._slurm_ntasks_per_node = ntasks_per_node
         self._slurm_cpus_per_task = cpus_per_task
         self._slurm_mem_per_node = mem_per_node
-        self._slurm_extra_options = extra_options
+        self._slurm_extra_sbatch_options = extra_sbatch_options
+        self._slurm_extra_srun_options = extra_srun_options
         self._slurm_extra_lines = extra_lines
         self._slurm_modules = modules
 
@@ -204,8 +209,8 @@ class SlurmJob(Job):
                 f.write("#SBATCH --cpus-per-task={}\n".format(self._slurm_cpus_per_task))
             if self._slurm_mem_per_node is not None:
                 f.write("#SBATCH --mem={}\n".format(self._slurm_mem_per_node))
-            if self._slurm_extra_options is not None:
-                for option in self._slurm_extra_options:
+            if self._slurm_extra_sbatch_options is not None:
+                for option in self._slurm_extra_sbatch_options:
                     f.write("SBATCH --{}\n".format(option))
             f.write("\n")
             if self._slurm_extra_lines is not None:
@@ -216,6 +221,10 @@ class SlurmJob(Job):
                 for module in self._slurm_modules:
                     f.write("module load {}\n".format(module))
                 f.write("\n")
+            base_arg = "srun --exclusive -n1"
+            if self._slurm_extra_srun_options:
+                for option in self._slurm_extra_srun_options:
+                    base_arg += " --{}".format(option)
             for arg in self.args:
-                f.write("srun --exclusive -n1 {} {} &\n".format(self.executable, arg.arg))
+                f.write("{} {} {} &\n".format(base_arg, self.executable, arg.arg))
             f.write("wait\n")
