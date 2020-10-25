@@ -1,10 +1,24 @@
-from pycondor.job import Job
-from pycondor.utils import (checkdir, requires_command, split_command_string, decode_string)
+"""Slurm job class for handling Slurm jobs using pycondor.job.Job.
+"""
+
 import subprocess
 import os
 
-class SlurmJob(Job):
+import pycondor.job
+import pycondor.utils
+
+
+class SlurmJob(pyconder.job.Job):
     """A class for handling Slurm job with pycondor Job as the backend.
+
+    Methods
+    -------
+    build(makedirs=True, fancyname=True)
+        Build and save the submit file for Job.
+    submit_job(submit_options=None)
+        Submit Job to Slurm.
+    build_submit(makedirs=True, fancyname=True, submit_options=None)
+        Build and submit sequentially.
     """
     def __init__(self,
                  name,
@@ -29,61 +43,49 @@ class SlurmJob(Job):
         ----------
         name: str
             Name of the job.
-
         executable: str
             Path of the executable for the job.
-
         error: str, optional
             Directory of error files.
-
         output: str, optional
             Directory of output files.
-
         submit: str, optional
             Directory of submit files.
-
         nodes: str, optional
             <minnodes[-maxnodes]>
-            Request that a minimum of minnodes nodes be allocated to this job. A maximum node
-            count may also be specified with maxnodes. If only one number is specified, this
+            Request that a minimum of minnodes nodes be allocated to
+            this job.
+            A maximum node count may also be specified with maxnodes.
+            If only one number is specified, this
             is used as both the minimum and maximum node count.
-
         ntasks_per_node: str, optional
             <ntasks>
             Request that ntasks be invoked on each node.
-
         cpus_per_task: str, optional
             <ncpus>
             Request that ncpus be allocated per process.
-
         mem_per_node: str, optional
             <size[units]>
             Specify the real memory required per node.
-
         extra_sbatch_options: array-like str, optionl
             An array of extra options to append after '#SBATCH '.
-
         extra_srun_option: array-like str, optional
             An array of extra options to append after 'srun'.
-
         extra_lines: array-like str, optional
             An array of extra lines to add before srun.
-
         modules: array-like str, optional
             An array of modules to append after 'module load '.
-
         slurm: Slurm, optional
             If specified, SlurmJob will be added to Slurm.
-
         arguments: str or iterable, optional
             Arguments to initialize the job list.
-
         verbose: int, optional
             Level of logging verbosity option are 0-warning, 1-info,
             2-debugging (default is 0).
         """
-        super().__init__(name=name, executable=executable, error=error, output=output,
-                         submit=submit, dag=slurm, arguments=arguments, verbose=verbose)
+        super().__init__(name=name, executable=executable, error=error,
+                         output=output, submit=submit, dag=slurm,
+                         arguments=arguments, verbose=verbose)
         self._slurm_nodes = nodes
         self._slurm_ntasks_per_node = ntasks_per_node
         self._slurm_cpus_per_task = cpus_per_task
@@ -100,21 +102,23 @@ class SlurmJob(Job):
         ----------
         makedirs: bool, optional
             Create job directories if not exist.
-
         fancyname: bool, optional
             Append the name with date and unique id.
 
         Returns
         -------
-        Path of the submit file.
+        self: object
+            Self object.
         """
-        self.logger.info("Building submission file for Job {}...".format(self.name))
+        self.logger.info(
+            "Building submission file for Job {}...".format(self.name))
         self._make_submit_script(makedirs, fancyname)
         self._built = True
-        self.logger.info("Submission file for {} successfully built!".format(self.name))
+        self.logger.info(
+            "Submission file for {} successfully built!".format(self.name))
         return self
 
-    @requires_command("sbatch")
+    @pyconder.utils.requires_command("sbatch")
     def submit_job(self, submit_options=None):
         """Submit Job to Slurm.
 
@@ -129,7 +133,7 @@ class SlurmJob(Job):
             Self object.
         """
         if not self._built:
-            raise ValueError("build() must be called before submit().")
+            raise ValueError("build() must be called before submit(). ")
         if len(self.parents) != 0:
             raise ValueError("Attempting to submit a Job with parents. "
                              "Interjob relationship requires Slurm.")
@@ -142,14 +146,14 @@ class SlurmJob(Job):
         command += " {}".format(self.submit_file)
 
         proc = subprocess.Popen(
-            split_command_string(command),
+            pyconder.utils.split_command_string(command),
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
         out, err = proc.communicate()
-        print(decode_string(out))
+        print(pyconder.utils.decode_string(out))
         return self
 
-    @requires_command("sbatch")
+    @pyconder.utils.requires_command("sbatch")
     def build_submit(self, makedirs=True, fancyname=True, submit_options=None):
         """Build and submit sequentially.
 
@@ -157,10 +161,8 @@ class SlurmJob(Job):
         ----------
         makedirs: bool, optional
             Create directories if not exist.
-
         fancyname: bool, optional
             Append date of unique id to submit.
-
         submit_options: str, optional
             Options to be passed to 'sbatch'.
 
@@ -180,23 +182,36 @@ class SlurmJob(Job):
         ----------
         makedirs: bool, optional
             Create job directories if not exist.
-
         fancyname: bool, optional
             Append the name with date and unique id.
         """
         # Check directories.
         for directory in [self.submit, self.output, self.error]:
             if directory is not None:
-                checkdir(os.path.join(directory,""), makedirs)
+                pyconder.utils.checkdir(os.path.join(directory, ""), makedirs)
         name = self._get_fancyname() if fancyname else self.name
-        submit_file = os.path.join(self.submit, "{}.submit".format(name)) if self.submit is not None else "{}.submit".format(name)
-        output_file = os.path.join(self.output, "{}.output".format(name)) if self.output is not None else "{}.output".format(name)
-        error_file = os.path.join(self.error, "{}.error".format(name)) if self.error is not None else "{}.error".format(name)
+
+        submit_file = (
+            os.path.join(self.submit, "{}.submit".format(name))
+            if self.submit is not None
+            else "{}.submit".format(name)
+        )
+        output_file = (
+            os.path.join(self.output, "{}.output".format(name))
+            if self.output is not None
+            else "{}.output".format(name)
+        )
+        error_file = (
+            os.path.join(self.error, "{}.error".format(name))
+            if self.error is not None
+            else "{}.error".format(name)
+        )
         self.submit_file = submit_file
         self.output_file = output_file
         self.error_file = error_file
         self.submit_name = name
-        with open(submit_file, "w") as f:
+
+        with open(self.submit_file, "w") as f:
             f.write("#!/bin/bash\n")
             f.write("#SBATCH --job-name={}\n".format(name))
             f.write("#SBATCH --output={}\n".format(output_file))
@@ -204,9 +219,11 @@ class SlurmJob(Job):
             if self._slurm_nodes is not None:
                 f.write("#SBATCH --nodes={}\n".format(self._slurm_nodes))
             if self._slurm_ntasks_per_node is not None:
-                f.write("#SBATCH --ntasks-per-node={}\n".format(self._slurm_ntasks_per_node))
+                f.write("#SBATCH --ntasks-per-node={}\n"
+                        "".format(self._slurm_ntasks_per_node))
             if self._slurm_cpus_per_task is not None:
-                f.write("#SBATCH --cpus-per-task={}\n".format(self._slurm_cpus_per_task))
+                f.write("#SBATCH --cpus-per-task={}\n"
+                        "".format(self._slurm_cpus_per_task))
             if self._slurm_mem_per_node is not None:
                 f.write("#SBATCH --mem={}\n".format(self._slurm_mem_per_node))
             if self._slurm_extra_sbatch_options is not None:
@@ -226,5 +243,6 @@ class SlurmJob(Job):
                 for option in self._slurm_extra_srun_options:
                     base_arg += " --{}".format(option)
             for arg in self.args:
-                f.write("{} {} {} &\n".format(base_arg, self.executable, arg.arg))
+                f.write("{} {} {} &\n"
+                        "".format(base_arg, self.executable, arg.arg))
             f.write("wait\n")
