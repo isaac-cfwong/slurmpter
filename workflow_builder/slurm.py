@@ -1,10 +1,26 @@
-from pycondor.dagman import Dagman
-from pycondor.utils import (checkdir, requires_command, split_command_string, decode_string)
+"""Slurm class to build slurm job with pyconder.
+"""
+
 import subprocess
 import os
 
-class Slurm(Dagman):
+import pycondor.dagman
+import pycondor.utils
+
+
+class Slurm(pycondor.dagman.Dagman):
     """A class to build slurm job with pycondor as the backend.
+
+    Methods
+    -------
+    build(makedirs=True, fancyname=True)
+        Build slurm submit files.
+    submit_slurm(submit_options=None)
+        Submit to slurm.
+    build_submit(makedirs=True, fancyname=True, submit_options=None)
+        Build and submit sequentially.
+    submit_dag(submit_options=None)
+        Override the parent method.
     """
     def __init__(self,
                  name,
@@ -27,7 +43,8 @@ class Slurm(Dagman):
         verbose: int
             Level of logging verbosity.
         """
-        super().__init__(name=name, submit=submit, extra_lines=extra_lines, verbose=verbose)
+        super().__init__(name=name, submit=submit, extra_lines=extra_lines,
+                         verbose=verbose)
 
     def build(self, makedirs=True, fancyname=True):
         """Build slurm submit files.
@@ -38,8 +55,8 @@ class Slurm(Dagman):
             Create job directories if do not exist.
 
         fancyname: bool, optional
-            Append the date and unique id number to error, log, output and
-            submit files.
+            Append the date and unique id number to error, log, output
+            and submit files.
         """
         if getattr(self, '_built', False):
             self.logger.warning(
@@ -48,14 +65,26 @@ class Slurm(Dagman):
             return self
 
         name = self._get_fancyname() if fancyname else self.name
-        submit_file = os.path.join(self.submit, '{}.submit'.format(name)) if self.submit is not None else '{}.submit'.format(name)
-        output_file = os.path.join(self.submit, "{}.output".format(name)) if self.submit is not None else '{}.output'.format(name)
-        error_file = os.path.join(self.submit, "{}.error".format(name)) if self.submit is not None else '{}.error'.format(name)
+        submit_file = (
+            os.path.join(self.submit, "{}.submit".format(name))
+            if self.submit is not None
+            else "{}.submit".format(name)
+        )
+        output_file = (
+            os.path.join(self.submit, "{}.output".format(name))
+            if self.submit is not None
+            else "{}.output".format(name)
+        )
+        error_file = (
+            os.path.join(self.submit, "{}.error".format(name))
+            if self.submit is not None
+            else "{}.error".format(name)
+        )
         self.submit_file = submit_file
         self.output_file = output_file
         self.error_file = error_file
         self.submit_name = name
-        checkdir(self.submit_file, makedirs)
+        pyconder.utils.checkdir(self.submit_file, makedirs)
         with open(submit_file, "w") as f:
             f.write("#!/bin/bash\n")
             # Standard output and error.
@@ -75,7 +104,7 @@ class Slurm(Dagman):
                 submit_str = "jid{}=($(sbatch".format(i)
                 # Get parents of the job.
                 parents = [job.name for job in self.nodes[i].parents]
-                if len(parents)>0:
+                if len(parents) > 0:
                     submit_str += " --dependency=afterok"
                     for parent in parents:
                         submit_str += ":${{jid{}[-1]}}".format(job_map[parent])
@@ -86,7 +115,7 @@ class Slurm(Dagman):
                          "built!".format(self.name))
         return self
 
-    @requires_command("sbatch")
+    @pyconder.utils.requires_command("sbatch")
     def submit_slurm(self, submit_options=None):
         """Submit to slurm.
 
@@ -109,14 +138,14 @@ class Slurm(Dagman):
         command += " {}".format(self.submit_file)
 
         proc = subprocess.Popen(
-            split_command_string(command),
+            pyconder.utils.split_command_string(command),
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
         out, err = proc.communicate()
-        print(decode_string(out))
+        print(pyconder.utils.decode_string(out))
         return self
 
-    @requires_command("sbatch")
+    @pyconder.utils.requires_command("sbatch")
     def build_submit(self, makedirs=True, fancyname=True, submit_options=None):
         """Build and submit sequentially.
 
