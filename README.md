@@ -1,1 +1,1 @@
-# slurmpter (slurm scripter )
+# slurmpter (slurm scripter)
