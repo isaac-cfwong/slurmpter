@@ -22,7 +22,7 @@ python-3.5:
     stage: test
     image: python:3.5
     script:
-        - python -m pip install -U pytest
+        - python -m pip install -U pytest-cov
         - pytest --cov=slurmpter --durations 10
         - coverage html
         - coverage-badge -o coverage_badge.svg -f
