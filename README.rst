@@ -23,7 +23,7 @@ Useful Links
 .. |pipeline| image:: https://gitlab.com/isaac-cfwong/slurmpter/badges/master/pipeline.svg
     :target: https://gitlab.com/isaac-cfwong/slurmpter/commits/master
 
-.. |coverage| image:: https://gitlab.com/isaac-cfwong/slurmpter/-/jobs/artifacts/master/file/coverage_badge.svg?job=python-3.5
+.. |coverage| image:: https://gitlab.com/isaac-cfwong/slurmpter/coverage_badge.svg
     :target https://gitlab.com/isaac-cfwong/slurmpter/htmlcov/
 
 .. |pypi| image:: https://badge.fury.io/py/slurmpter.svg
