@@ -1,4 +1,11 @@
 from setuptools import setup, find_packages
+import os
+
+def get_long_description():
+    here = os.path.abspath(os.path.dirname(__file__))
+    with open(os.path.join(here, 'README.rst')) as f:
+        long_description = f.read()
+    return long_description
 
 VERSION = "0.1.0"
 
@@ -7,6 +14,8 @@ setup(
     version=VERSION,
     license="MIT",
     description="A package to build Slurm submit files of a workflow of jobs easily.",
+    long_description=get_long_description(),
+    long_description_content_type="text/x-rst",
     author="Isaac Chun Fung WONG",
     author_email="chunefung@gmail.com",
     url="https://gitlab.com/isaac-cfwong/slurmpter",
@@ -17,9 +26,6 @@ setup(
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
+        "Operating System :: OS Independent",
     ],
 )

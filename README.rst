@@ -1,4 +1,5 @@
+|pypi| |docs| |version|
+
+=========
 slurmpter
 =========
-
-|docs| |license|
