@@ -20,14 +20,8 @@ basic-3.5:
 
 python-3.5:
     stage: test
-    image: continuumio/miniconda3:latest
+    image: python3.5
     script:
-        - conda install anaconda-client -n base
-        - conda create -n slurmpter-test python=3.5
-        - conda init bash
-        - exec bash
-        - conda activate slurmpter-test
-        - conda install -c anaconda graphviz
         - python -m pip install -U pytest-cov
         - python -m pip install -U coverage-badge
         - python -m pip install -U flake8

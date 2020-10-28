@@ -279,8 +279,6 @@ class TestSlurm(unittest.TestCase):
             data = f.read()
         self.assertEqual(data, expected_TestSlurm_test_build_job_4_output)
 
-        slurm.visualize("workflow.pdf")
-
         self.assertEqual(job_0.haschildren(), True)
         self.assertEqual(job_0.hasparents(), False)
         self.assertEqual(job_1.haschildren(), True)
