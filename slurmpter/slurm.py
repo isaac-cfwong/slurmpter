@@ -35,6 +35,16 @@ class Slurm(pycondor.dagman.Dagman):
         super().__init__(name=name, submit=submit, extra_lines=extra_lines,
                          verbose=verbose)
 
+    def __repr__(self):
+        nondefaults = ''
+        for attr in sorted(vars(self)):
+            if getattr(self, attr) and attr not in ['name', 'nodes', 'logger']:
+                nondefaults += ', {}={}'.format(attr, getattr(self, attr))
+        output = 'Slurm(name={}, n_nodes={}{})'.format(self.name,
+                                                       len(self.nodes),
+                                                       nondefaults)
+        return output
+
     def build(self, makedirs=True, fancyname=True):
         """Build slurm submit files.
 

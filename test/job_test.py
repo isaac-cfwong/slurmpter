@@ -21,6 +21,9 @@ module load module_1
 
 srun --srun_option_0=srun_xoption_0 --srun_option_1=srun_xoption_1 executable --arg arg_0 &
 srun --srun_option_0=srun_xoption_0 --srun_option_1=srun_xoption_1 executable --arg arg_1 &
+srun --srun_option_0=srun_xoption_0 --srun_option_1=srun_xoption_1 executable --arg arg_2 &
+srun --srun_option_0=srun_xoption_0 --srun_option_1=srun_xoption_1 executable --arg arg_3 &
+srun --srun_option_0=srun_xoption_0 --srun_option_1=srun_xoption_1 executable --arg arg_4 &
 wait
 """
 
@@ -48,6 +51,8 @@ class TestSlurmJob(unittest.TestCase):
                        extra_lines=["extra_line_0", "extra_line_1"],
                        modules=["module_0", "module_1"],
                        arguments=["--arg arg_0", "--arg arg_1"])
+        job.add_arg("--arg arg_2")
+        job.add_args(["--arg arg_3", "--arg arg_4"])
         job.build(fancyname=False)
         with open("slurm/submit/test_slurmjob_build.submit", "r") as f:
             data = f.read()

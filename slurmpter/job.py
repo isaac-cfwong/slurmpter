@@ -86,6 +86,16 @@ class SlurmJob(pycondor.job.Job):
         self._slurm_extra_lines = extra_lines
         self._slurm_modules = modules
 
+    def __repr__(self):
+        nondefaults = ''
+        default_attr = ['name', 'executable', 'logger']
+        for attr in sorted(vars(self)):
+            if getattr(self, attr) and attr not in default_attr:
+                nondefaults += ', {}={}'.format(attr, getattr(self, attr))
+        output = 'SlurmJob(name={}, executable={}{})'.format(
+            self.name, os.path.basename(self.executable), nondefaults)
+        return output
+
     def build(self, makedirs=True, fancyname=True):
         """Build and save the submit file for Job.
 
