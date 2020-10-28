@@ -19,7 +19,7 @@ Slurmpter Home
 .. image:: https://img.shields.io/badge/License-MIT-blue.svg
     :target: https://gitlab.com/isaac-cfwong/slurmpter/-/blob/master/LICENSE
 
-Slurmpter (Slurm Scripter) is a package to build Slurm submit files of a workflow of jobs easily. The package uses PyCondor_ as the backend. The user interface of slurmpter is very similar to that of pycondor except for some arguments dedicated for Slurm.
+Slurmpter (Slurm Scripter) is a package to build Slurm submit files of a workflow of jobs easily. The package uses PyCondor_ as the backend. The user interface of slurmpter is very similar to that of PyCondor_ except for some arguments dedicated for Slurm.
 
 .. toctree::
    :maxdepth: 2
