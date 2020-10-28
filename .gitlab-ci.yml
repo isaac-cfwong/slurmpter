@@ -23,6 +23,8 @@ python-3.5:
     image: python:3.5
     script:
         - python -m pip install -U pytest-cov
+        - python -m pip install .
+        - flake8 .
         - pytest --cov=slurmpter --durations 10
         - coverage html
         - coverage-badge -o coverage_badge.svg -f
