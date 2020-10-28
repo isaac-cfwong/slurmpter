@@ -8,6 +8,7 @@ stages:
 
   script:
     - python -m pip install .
+    - python -m pip install -r requirements_doc.txt
     - python -c "import slurmpter"
     - python -c "from slurmpter import Slurm"
     - python -c "from slurmpter import SlurmJob"
@@ -17,3 +18,18 @@ stages:
 python-3.5:
     <<: *test-python
     image: python:3.5
+    script:
+        - pytest --cov=slurmpter --durations 10
+        - coverage html
+        - coverage-badge -o coverage_badge.svg -f
+        - cd docs
+        - make clean
+        - make html
+
+    artifacts:
+        paths:
+            - htmlcov/
+            - coverage_badge.svg
+            - docs/_build/html/
+
+

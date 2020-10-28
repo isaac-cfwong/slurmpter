@@ -1,8 +1,11 @@
-|pypi| |docs| |license|
+|pipeline| |coverage| |pypi| |docs| |license|
 
 =========
 slurmpter
 =========
+
+.. |pipeline| image:: https://gitlab.com/isaac-cfwong/slurmpter/badges/master/pipeline.svg
+   :target: https://gitlab.com/isaac-cfwong/slurmpter/commits/master
 
 .. |pypi| image:: https://badge.fury.io/py/slurmpter.svg
     :target: https://pypi.org/project/slurmpter/
