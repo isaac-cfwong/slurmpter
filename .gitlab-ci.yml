@@ -21,13 +21,12 @@ basic-3.5:
 python-3.5:
     stage: test
     image: continuumio/miniconda3:latest
-    before_script:
+    script:
         - conda install anaconda-client -n base
         - conda create -n slurmpter-test python=3.5
         - conda init bash
         - exec bash -l
         - conda activate slurmpter-test
-    script:
         - conda install -c anaconda graphviz
         - python -m pip install -U pytest-cov
         - python -m pip install -U coverage-badge
