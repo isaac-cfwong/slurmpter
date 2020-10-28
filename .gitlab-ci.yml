@@ -40,6 +40,4 @@ python-3.5:
         paths:
             - htmlcov/
             - coverage_badge.svg
-            - docs/_build/html/
-
-
+            - docs/build/html/
