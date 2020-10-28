@@ -20,7 +20,10 @@ basic-3.5:
 
 python-3.5:
     stage: test
-    image: python:3.5
+    image: continuumio/miniconda3:latest
+    before_script:
+        - conda env create -n test
+        - conda activate test
     script:
         - conda install -c anaconda graphviz
         - python -m pip install -U pytest-cov

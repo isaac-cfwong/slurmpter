@@ -1,10 +1,8 @@
 |pipeline| |coverage| |pypi| |docs| |license|
 
-=========
-slurmpter
-=========
-
 .. image:: docs/source/_static/logo.svg
+
+========================================
 
 .. |pipeline| image:: https://gitlab.com/isaac-cfwong/slurmpter/badges/master/pipeline.svg
    :target: https://gitlab.com/isaac-cfwong/slurmpter/commits/master
