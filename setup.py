@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 import os
 
 
@@ -22,7 +22,7 @@ setup(
     author_email="chunefung@gmail.com",
     url="https://gitlab.com/isaac-cfwong/slurmpter",
     python_requires=">=3.5",
-    packages=find_packages(),
+    packages=["slurmpter"],
     install_requires=["pycondor"],
     classifiers=[
         "Development Status :: 4 - Beta",
