@@ -22,8 +22,8 @@ python-3.5:
     stage: test
     image: continuumio/miniconda3:latest
     before_script:
-        - conda env create -n test
-        - conda activate test
+        - conda env create -n isaac-cfwong/slurmpter-test
+        - conda activate isaac-cfwong/slurmpter-test
     script:
         - conda install -c anaconda graphviz
         - python -m pip install -U pytest-cov
