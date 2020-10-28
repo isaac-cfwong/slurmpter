@@ -15,8 +15,11 @@ stages:
     - python -c "from slurmpter import Dagman"
     - python -c "from slurmpter import DagmanJob"
 
-python-3.5:
+basic-3.5:
     <<: *test-python
+
+python-3.5:
+    stage: test
     image: python:3.5
     script:
         - pytest --cov=slurmpter --durations 10
