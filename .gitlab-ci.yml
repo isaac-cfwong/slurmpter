@@ -13,3 +13,7 @@ stages:
     - python -c "import slurmpter.SlurmJob"
     - python -c "import slurmpter.Dagman"
     - python -c "import slurmpter.DagmanJob"
+
+python-3.5:
+    <<: *test-python
+    image: python:3.5
