@@ -9,10 +9,10 @@ stages:
   script:
     - python -m pip install .
     - python -c "import slurmpter"
-    - python -c "import slurmpter.Slurm"
-    - python -c "import slurmpter.SlurmJob"
-    - python -c "import slurmpter.Dagman"
-    - python -c "import slurmpter.DagmanJob"
+    - python -c "from slurmpter import Slurm"
+    - python -c "from slurmpter import SlurmJob"
+    - python -c "from slurmpter import Dagman"
+    - python -c "from slurmpter import DagmanJob"
 
 python-3.5:
     <<: *test-python
