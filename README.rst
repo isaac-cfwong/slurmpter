@@ -15,7 +15,7 @@ Useful Links
 
 `slurmpter @ GitLab <https://gitlab.com/isaac-cfwong/slurmpter>`_
 
-`slurmpter mirror @ GitHub <>`
+`slurmpter mirror @ GitHub <https://github.com/isaac-cfwong/slurmpter>`_
 
 
 .. _PyCondor: https://github.com/jrbourbeau/pycondor
@@ -23,7 +23,7 @@ Useful Links
 .. |pipeline| image:: https://gitlab.com/isaac-cfwong/slurmpter/badges/master/pipeline.svg
     :target: https://gitlab.com/isaac-cfwong/slurmpter/commits/master
 
-.. |coverage| image:: https://gitlab.com/isaac-cfwong/slurmpter/coverage_badge.svg
+.. |coverage| image:: https://gitlab.com/isaac-cfwong/slurmpter/-/jobs/artifacts/master/file/coverage_badge.svg?job=python-3.5
     :target https://gitlab.com/isaac-cfwong/slurmpter/htmlcov/
 
 .. |pypi| image:: https://badge.fury.io/py/slurmpter.svg
