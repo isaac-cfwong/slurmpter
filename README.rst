@@ -4,8 +4,27 @@
 
 ========================================
 
+Slurmpter (Slurm Scripter) is a package to build Slurm submit files of a workflow of jobs easily. The package uses PyCondor_ as the backend. The user interface of slurmpter is very similar to that of PyCondor_ except for some arguments dedicated for Slurm.
+
+Useful Links
+------------
+
+`Documentation Homepage <https://slurmpter.readthedocs.io/en/latest/index.html>`_
+
+`Installation Guide <https://slurmpter.readthedocs.io/en/latest/installation.html>`_
+
+`slurmpter @ GitLab <https://gitlab.com/isaac-cfwong/slurmpter>`_
+
+`slurmpter mirror @ GitHub <>`
+
+
+.. _PyCondor: https://github.com/jrbourbeau/pycondor
+
 .. |pipeline| image:: https://gitlab.com/isaac-cfwong/slurmpter/badges/master/pipeline.svg
-   :target: https://gitlab.com/isaac-cfwong/slurmpter/commits/master
+    :target: https://gitlab.com/isaac-cfwong/slurmpter/commits/master
+
+.. |coverage| image:: https://gitlab.com/isaac-cfwong/slurmpter/coverage_badge.svg
+    :target https://gitlab.com/isaac-cfwong/slurmpter/htmlcov/
 
 .. |pypi| image:: https://badge.fury.io/py/slurmpter.svg
     :target: https://pypi.org/project/slurmpter/
