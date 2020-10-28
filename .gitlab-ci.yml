@@ -1,0 +1,15 @@
+stages:
+  - test
+  - deploy
+
+.test-python: &test-python
+  stage: test
+  image: python
+
+  script:
+    - python -m pip install .
+    - python -c "import slurmpter"
+    - python -c "import slurmpter.Slurm"
+    - python -c "import slurmpter.SlurmJob"
+    - python -c "import slurmpter.Dagman"
+    - python -c "import slurmpter.DagmanJob"
