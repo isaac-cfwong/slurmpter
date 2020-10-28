@@ -1,4 +1,4 @@
-|pypi| |docs| |version|
+|pypi| |docs| |license|
 
 =========
 slurmpter
@@ -6,9 +6,10 @@ slurmpter
 
 .. |pypi| image:: https://badge.fury.io/py/slurmpter.svg
     :target: https://pypi.org/project/slurmpter/
+    :alt: Package on PyPI
 
-.. |docs| image:: https://badge.fury.io/py/slurmpter.svg
+.. |docs| image:: https://readthedocs.org/projects/sphinx/badge/?version=master
     :target: https://slurmpter.readthedocs.io/en/latest/
 
-.. |version| image:: https://img.shields.io/pypi/pyversions/slurmpter.svg
-    :target: https://pypi.org/project/slurmpter/
+.. |license| image:: https://img.shields.io/badge/License-MIT-blue.svg
+    :target: https://gitlab.com/isaac-cfwong/slurmpter/-/blob/master/LICENSE
