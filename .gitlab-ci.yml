@@ -24,7 +24,7 @@ python-3.5:
     before_script:
         - conda install anaconda-client -n base
         - conda create -n slurmpter-test python=3.5
-        - conda init slurmpter-test
+        - conda init bash
         - conda activate slurmpter-test
     script:
         - conda install -c anaconda graphviz
