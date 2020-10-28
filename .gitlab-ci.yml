@@ -23,8 +23,8 @@ python-3.5:
     image: continuumio/miniconda3:latest
     before_script:
         - conda install anaconda-client -n base
-        - conda env create -n isaac-cfwong/slurmpter-test python=3.5
-        - conda activate isaac-cfwong/slurmpter-test
+        - conda create -n slurmpter-test python=3.5
+        - conda activate slurmpter-test
     script:
         - conda install -c anaconda graphviz
         - python -m pip install -U pytest-cov
