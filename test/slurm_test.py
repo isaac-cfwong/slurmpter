@@ -174,3 +174,5 @@ class TestSlurm(unittest.TestCase):
         with open("slurm/submit/test_slurm_build_job_2.submit", "r") as f:
             data = f.read()
         self.assertEqual(data, expected_TestSlurm_test_build_job_2_output)
+
+        slurm.visualize("workflow.pdf")
