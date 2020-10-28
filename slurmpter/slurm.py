@@ -7,6 +7,7 @@ import os
 import pycondor.dagman
 import pycondor.utils
 
+
 class Slurm(pycondor.dagman.Dagman):
     """Slurm object manages the workflow of a series of SlurmJobs.
     """
@@ -173,7 +174,8 @@ class Slurm(pycondor.dagman.Dagman):
         Parameters
         ----------
         filename: str or None, optional
-            File to save graph diagram to. If ``None`` then no file is saved. Valid file extensions are ‘png’, ‘pdf’, ‘dot’, ‘svg’, ‘jpeg’, ‘jpg’.
+            File to save graph diagram to. If ``None`` then no file is saved.
+            Valid file extensions are ‘png’, ‘pdf’, ‘dot’, ‘svg’, ‘jpeg’, ‘jpg’.
         """
         super().visualize(filename)
 
@@ -209,5 +211,3 @@ class Slurm(pycondor.dagman.Dagman):
         """Override the parent method.
         """
         raise NotImplementedError
-
-
