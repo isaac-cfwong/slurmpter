@@ -1,6 +1,5 @@
 import os
 import sys
-import slurmpter
 sys.path.insert(0, os.path.abspath('../../slurmpter'))
 # Configuration file for the Sphinx documentation builder.
 #
