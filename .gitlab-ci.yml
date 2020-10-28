@@ -20,7 +20,7 @@ basic-3.5:
 
 python-3.5:
     stage: test
-    image: python3.5
+    image: python:3.5
     script:
         - python -m pip install -U pytest-cov
         - python -m pip install -U coverage-badge
