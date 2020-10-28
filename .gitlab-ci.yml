@@ -41,3 +41,19 @@ python-3.5:
             - htmlcov/
             - coverage_badge.svg
             - docs/build/html/
+
+pages:
+  stage: deploy
+  dependencies:
+    - python-3.5
+  script:
+    - mkdir public/
+    - mv htmlcov/ public/
+    - mv coverage_badge.svg public/
+    - mv docs/build/html/* public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - master
