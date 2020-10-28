@@ -8,17 +8,8 @@ import pycondor.job
 import pycondor.utils
 
 
-class SlurmJob(pyconder.job.Job):
-    """A class for handling Slurm job with pycondor Job as the backend.
-
-    Methods
-    -------
-    build(makedirs=True, fancyname=True)
-        Build and save the submit file for Job.
-    submit_job(submit_options=None)
-        Submit Job to Slurm.
-    build_submit(makedirs=True, fancyname=True, submit_options=None)
-        Build and submit sequentially.
+class SlurmJob(pycondor.job.Job):
+    """A class for handling Slurm job.
     """
     def __init__(self,
                  name,
@@ -31,7 +22,7 @@ class SlurmJob(pyconder.job.Job):
                  cpus_per_task=None,
                  mem_per_node=None,
                  extra_sbatch_options=None,
-                 extra_srun_options=None,
+                 extra_srun_options=['ntasks=1', 'exclusive'],
                  extra_lines=None,
                  modules=None,
                  slurm=None,
@@ -118,7 +109,7 @@ class SlurmJob(pyconder.job.Job):
             "Submission file for {} successfully built!".format(self.name))
         return self
 
-    @pyconder.utils.requires_command("sbatch")
+    @pycondor.utils.requires_command("sbatch")
     def submit_job(self, submit_options=None):
         """Submit Job to Slurm.
 
@@ -146,14 +137,14 @@ class SlurmJob(pyconder.job.Job):
         command += " {}".format(self.submit_file)
 
         proc = subprocess.Popen(
-            pyconder.utils.split_command_string(command),
+            pycondor.utils.split_command_string(command),
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
         out, err = proc.communicate()
-        print(pyconder.utils.decode_string(out))
+        print(pycondor.utils.decode_string(out))
         return self
 
-    @pyconder.utils.requires_command("sbatch")
+    @pycondor.utils.requires_command("sbatch")
     def build_submit(self, makedirs=True, fancyname=True, submit_options=None):
         """Build and submit sequentially.
 
@@ -188,7 +179,7 @@ class SlurmJob(pyconder.job.Job):
         # Check directories.
         for directory in [self.submit, self.output, self.error]:
             if directory is not None:
-                pyconder.utils.checkdir(os.path.join(directory, ""), makedirs)
+                pycondor.utils.checkdir(os.path.join(directory, ""), makedirs)
         name = self._get_fancyname() if fancyname else self.name
 
         submit_file = (
@@ -238,7 +229,7 @@ class SlurmJob(pyconder.job.Job):
                 for module in self._slurm_modules:
                     f.write("module load {}\n".format(module))
                 f.write("\n")
-            base_arg = "srun --exclusive -n1"
+            base_arg = "srun"
             if self._slurm_extra_srun_options:
                 for option in self._slurm_extra_srun_options:
                     base_arg += " --{}".format(option)

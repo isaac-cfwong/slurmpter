@@ -1,4 +1,7 @@
-import sphinx_glpi_theme
+import os
+import sys
+import slurmpter
+sys.path.insert(0, os.path.abspath('../../slurmpter'))
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -23,7 +26,7 @@ copyright = '2020, Isaac Chun Fung WONG'
 author = 'Isaac Chun Fung WONG'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = '0.1.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -32,7 +35,14 @@ release = '0.0.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.coverage',
+    'sphinx.ext.napoleon',
+    'autodocsumm'
 ]
+
+autosummary_generate = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -48,10 +58,26 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'glpi'
-html_theme_path = sphinx_glpi_theme.get_html_themes_path()
+html_theme = 'sphinx_rtd_theme'
+html_logo = '_static/logo.svg'
+html_theme_options = {
+    'logo_only': True,
+    'display_version': False
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+def skip_member(app, what, name, obj, skip, opts):
+    skipped_slurm_member = ['add_child', 'add_children', 'add_parent', 'add_parents',
+                            'add_subdag', 'haschildren', 'hasparents', 'submit_dag']
+    if name != '__init__' and name[0] == '_':
+        return True
+    elif hasattr(obj, '__module__') and obj.__module__=="slurmpter.slurm" and name in skipped_slurm_member:
+        return True
+    return False
+
+def setup(app):
+    app.connect('autodoc-skip-member', skip_member)

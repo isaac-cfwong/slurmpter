@@ -1,4 +1,4 @@
-"""Slurm class to build slurm job with pyconder.
+"""Slurm class to build slurm job with pycondor.
 """
 
 import subprocess
@@ -7,20 +7,8 @@ import os
 import pycondor.dagman
 import pycondor.utils
 
-
 class Slurm(pycondor.dagman.Dagman):
-    """A class to build slurm job with pycondor as the backend.
-
-    Methods
-    -------
-    build(makedirs=True, fancyname=True)
-        Build slurm submit files.
-    submit_slurm(submit_options=None)
-        Submit to slurm.
-    build_submit(makedirs=True, fancyname=True, submit_options=None)
-        Build and submit sequentially.
-    submit_dag(submit_options=None)
-        Override the parent method.
+    """Slurm object manages the workflow of a series of SlurmJobs.
     """
     def __init__(self,
                  name,
@@ -84,7 +72,7 @@ class Slurm(pycondor.dagman.Dagman):
         self.output_file = output_file
         self.error_file = error_file
         self.submit_name = name
-        pyconder.utils.checkdir(self.submit_file, makedirs)
+        pycondor.utils.checkdir(self.submit_file, makedirs)
         with open(submit_file, "w") as f:
             f.write("#!/bin/bash\n")
             # Standard output and error.
@@ -115,7 +103,7 @@ class Slurm(pycondor.dagman.Dagman):
                          "built!".format(self.name))
         return self
 
-    @pyconder.utils.requires_command("sbatch")
+    @pycondor.utils.requires_command("sbatch")
     def submit_slurm(self, submit_options=None):
         """Submit to slurm.
 
@@ -138,14 +126,14 @@ class Slurm(pycondor.dagman.Dagman):
         command += " {}".format(self.submit_file)
 
         proc = subprocess.Popen(
-            pyconder.utils.split_command_string(command),
+            pycondor.utils.split_command_string(command),
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
         out, err = proc.communicate()
-        print(pyconder.utils.decode_string(out))
+        print(pycondor.utils.decode_string(out))
         return self
 
-    @pyconder.utils.requires_command("sbatch")
+    @pycondor.utils.requires_command("sbatch")
     def build_submit(self, makedirs=True, fancyname=True, submit_options=None):
         """Build and submit sequentially.
 
@@ -169,7 +157,57 @@ class Slurm(pycondor.dagman.Dagman):
         self.submit_slurm(submit_options=submit_options)
         return self
 
+    def add_job(self, job):
+        """Add job to Slurm.
+
+        Parameters
+        ----------
+        job: SlurmJob
+            SlurmJob to append to Slurm job list.
+        """
+        super().add_job(job)
+
+    def visualize(self, filename=None):
+        """Visualize Slurm graph.
+
+        Parameters
+        ----------
+        filename: str or None, optional
+            File to save graph diagram to. If ``None`` then no file is saved. Valid file extensions are ‘png’, ‘pdf’, ‘dot’, ‘svg’, ‘jpeg’, ‘jpg’.
+        """
+        super().visualize(filename)
+
+    def add_child(self, node):
+        """Override the parent method."""
+        raise NotImplementedError
+
+    def add_children(self, nodes):
+        """Override the parent method."""
+        raise NotImplementedError
+
+    def add_parent(self, node):
+        """Override the parent method."""
+        raise NotImplementedError
+
+    def add_parents(self, nodes):
+        """Override the parent method."""
+        raise NotImplementedError
+
+    def add_subdag(self, dag):
+        """Override the parent method."""
+        raise NotImplementedError
+
+    def haschildren(self):
+        """Override the parent method."""
+        raise NotImplementedError
+
+    def hasparents(self):
+        """Override the parent method."""
+        raise NotImplementedError
+
     def submit_dag(self, submit_options=None):
         """Override the parent method.
         """
-        raise Exception("Forbidden function call().")
+        raise NotImplementedError
+
+
