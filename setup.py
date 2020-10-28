@@ -23,7 +23,7 @@ setup(
     url="https://gitlab.com/isaac-cfwong/slurmpter",
     python_requires=">=3.5",
     packages=["slurmpter"],
-    install_requires=["pycondor"],
+    install_requires=["graphviz", "pycondor"],
     classifiers=[
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: MIT License",
