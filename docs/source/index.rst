@@ -6,6 +6,16 @@
 Slurmpter Home
 ==============
 
+.. image:: https://badge.fury.io/py/slurmpter.svg
+    :target: https://pypi.org/project/slurmpter/
+    :alt: Package on PyPI
+
+.. image:: https://readthedocs.org/projects/sphinx/badge/?version=master
+    :target: https://slurmpter.readthedocs.io/en/latest/
+
+.. image:: https://img.shields.io/badge/License-MIT-blue.svg
+    :target: https://gitlab.com/isaac-cfwong/slurmpter/-/blob/master/LICENSE
+
 Slurmpter (Slurm Scripter) is a package to build Slurm submit files of a workflow of jobs easily. The package uses PyCondor_ as the backend. The user interface of slurmpter is very similar to that of pycondor except for some arguments dedicated for Slurm.
 
 .. toctree::
@@ -28,6 +38,7 @@ Slurmpter (Slurm Scripter) is a package to build Slurm submit files of a workflo
     api
     slurm
     slurmjob
+    example
     alias
 
 .. toctree::
