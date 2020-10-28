@@ -6,31 +6,36 @@
 Slurmpter Home
 ==============
 
-Slurmpter (Slurm Scripter) is a package to build Slurm submit files of a workflow of jobs easily. The package uses pycondor_ as the backend. The user interface of slurmpter is very similar to that of pycondor except for some arguments dedicated for Slurm.
+Slurmpter (Slurm Scripter) is a package to build Slurm submit files of a workflow of jobs easily. The package uses PyCondor_ as the backend. The user interface of slurmpter is very similar to that of pycondor except for some arguments dedicated for Slurm.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-.. _pycondor: https://github.com/jrbourbeau/pycondor
+.. _PyCondor: https://github.com/jrbourbeau/pycondor
 
 .. toctree::
     :maxdepth: 1
     :caption: Getting Started
 
     installation
+    tutorial
 
 .. toctree::
     :maxdepth: 1
     :caption: User Guide
 
     api
+    slurm
+    slurmjob
+    alias
 
 .. toctree::
     :maxdepth: 1
     :caption: Useful links
 
     slurmpter @ GitLab <https://gitlab.com/isaac-cfwong/slurmpter>
+    slurmpter mirror @ GitHub <https://github.com/isaac-cfwong/slurmpter>
     Issue tracker <https://gitlab.com/isaac-cfwong/slurmpter/-/issues>
     
 

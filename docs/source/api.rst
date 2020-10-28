@@ -19,6 +19,8 @@ SlurmJob
     :inherited-members:
     :undoc-members:
 
+.. _slurm-api:
+
 =====
 Slurm
 =====

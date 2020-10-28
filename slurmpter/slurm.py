@@ -26,7 +26,7 @@ class Slurm(pycondor.dagman.Dagman):
             Directory to write submit files.
 
         extra_lines: array-like str
-            Extra lines to append before sbatch.
+            Extra lines to add into the submit file.
 
         verbose: int
             Level of logging verbosity.
