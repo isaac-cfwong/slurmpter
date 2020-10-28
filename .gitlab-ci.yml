@@ -25,7 +25,7 @@ python-3.5:
         - conda install anaconda-client -n base
         - conda create -n slurmpter-test python=3.5
         - conda init bash
-        - exec bash -l
+        - exec bash
         - conda activate slurmpter-test
         - conda install -c anaconda graphviz
         - python -m pip install -U pytest-cov
