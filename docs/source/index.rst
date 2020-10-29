@@ -46,6 +46,7 @@ Slurmpter (Slurm Scripter) is a package to build Slurm submit files of a workflo
     slurmjob
     example
     alias
+    changelog
 
 .. toctree::
     :maxdepth: 1
