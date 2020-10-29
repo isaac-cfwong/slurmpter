@@ -34,6 +34,7 @@ python-3.5:
         - pytest --cov=slurmpter --durations 10
         - coverage html
         - coverage-badge -o coverage_badge.svg -f
+        - bash <(curl -s https://codecov.io/bash) 
         - cd docs
         - make clean
         - make html
@@ -43,19 +44,3 @@ python-3.5:
             - htmlcov/
             - coverage_badge.svg
             - docs/build/html/
-
-pages:
-  stage: deploy
-  dependencies:
-    - python-3.5
-  script:
-    - mkdir public/
-    - mv htmlcov/ public/
-    - mv coverage_badge.svg public/
-    - mv docs/build/html/* public/
-  artifacts:
-    paths:
-      - public
-    expire_in: 30 days
-  only:
-    - master
