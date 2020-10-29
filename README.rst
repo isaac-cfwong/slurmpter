@@ -1,4 +1,4 @@
-|pipeline| |coverage report| |pypi| |docs| |license|
+|pipeline| |coverage| |pypi| |docs| |license|
 
 .. image:: docs/source/_static/logo.svg
 
@@ -23,8 +23,8 @@ Useful Links
 .. |pipeline| image:: https://gitlab.com/isaac-cfwong/slurmpter/badges/master/pipeline.svg
     :target: https://gitlab.com/isaac-cfwong/slurmpter/commits/master
 
-.. |coverage report| image:: https://gitlab.com/isaac-cfwong/slurmpter/badges/master/coverage.svg
-    :target https://gitlab.com/isaac-cfwong/slurmpter/htmlcov/
+.. |coverage| image:: https://gitlab.com/isaac-cfwong/slurmpter/badges/master/coverage.svg
+    :target: https://codecov.io/gl/isaac-cfwong/slurmpter/
 
 .. |pypi| image:: https://badge.fury.io/py/slurmpter.svg
     :target: https://pypi.org/project/slurmpter/
