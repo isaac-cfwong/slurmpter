@@ -7,6 +7,9 @@ expected_TestSlurm_test_build_slurm_output = """#!/bin/bash
 #SBATCH --output=slurm/submit/test_slurm_build_slurm.output
 #SBATCH --error=slurm/submit/test_slurm_build_slurm.error
 
+extra_line_0
+extra_line_1
+
 jid0=($(sbatch slurm/submit/test_slurm_build_job_0.submit))
 jid1=($(sbatch --dependency=afterok:${jid0[-1]} slurm/submit/test_slurm_build_job_1.submit))
 jid2=($(sbatch --dependency=afterok:${jid0[-1]}:${jid1[-1]} slurm/submit/test_slurm_build_job_2.submit))
@@ -138,6 +141,12 @@ srun --srun_option_0=srun_xoption_0 --srun_option_1=srun_xoption_1 executable_4 
 wait
 """
 
+expected_slurm_str = "Slurm(name=test_slurm_build_slurm, n_nodes=5, _built=True, "\
+                     "error_file=slurm/submit/test_slurm_build_slurm.error, extra_lines=['"\
+                     "extra_line_0', 'extra_line_1'], output_file=slurm/submit/test_slurm_"\
+                     "build_slurm.output, submit=slurm/submit, submit_file=slurm/submit/"\
+                     "test_slurm_build_slurm.submit, submit_name=test_slurm_build_slurm)"
+
 
 class TestSlurm(unittest.TestCase):
 
@@ -146,7 +155,9 @@ class TestSlurm(unittest.TestCase):
         output = "slurm/output"
         submit = "slurm/submit"
 
-        slurm = Slurm(name="test_slurm_build_slurm", submit=submit)
+        slurm = Slurm(name="test_slurm_build_slurm",
+                      submit=submit,
+                      extra_lines=["extra_line_0", "extra_line_1"])
 
         job_0 = SlurmJob(name="test_slurm_build_job_0",
                          executable="executable_0",
@@ -163,8 +174,8 @@ class TestSlurm(unittest.TestCase):
                                              "srun_option_1=srun_xoption_1"],
                          extra_lines=["extra_line_0", "extra_line_1"],
                          modules=["module_0", "module_1"],
-                         arguments=["--arg arg_0", "--arg arg_1"],
-                         slurm=slurm)
+                         arguments=["--arg arg_0", "--arg arg_1"])
+        slurm.add_job(job_0)
         job_0.add_arg("--arg arg_2")
         job_0.add_args(["--arg arg_3", "--arg arg_4"])
 
@@ -291,3 +302,20 @@ class TestSlurm(unittest.TestCase):
         self.assertEqual(job_4.hasparents(), True)
 
         slurm.visualize("workflow.pdf")
+
+        self.assertEqual(str(slurm), expected_slurm_str)
+
+    def test_exception(self):
+        slurm = Slurm(name="test")
+        slurm_1 = Slurm(name="test_1")
+        slurm_2 = Slurm(name="test_2")
+
+        # Test forbidden function calls.
+        self.assertRaises(NotImplementedError, slurm.add_child, slurm_1)
+        self.assertRaises(NotImplementedError, slurm.add_child, [slurm_1, slurm_2])
+        self.assertRaises(NotImplementedError, slurm.add_parent, slurm_1)
+        self.assertRaises(NotImplementedError, slurm.add_parents, [slurm_1, slurm_2])
+        self.assertRaises(NotImplementedError, slurm.add_subdag, slurm_1)
+        self.assertRaises(NotImplementedError, slurm.haschildren)
+        self.assertRaises(NotImplementedError, slurm.hasparents)
+        self.assertRaises(NotImplementedError, slurm.submit_dag)

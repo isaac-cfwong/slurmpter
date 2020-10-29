@@ -123,14 +123,6 @@ class Slurm(pycondor.dagman.Dagman):
         submit_options: str, optional
             Submit options appends after sbatch.
         """
-        if not self._built:
-            raise ValueError("build() must be called before submit().")
-        if len(self.parents) != 0:
-            raise ValueError("Attempting to submit a Job with parents. "
-                             "Interjob relationship requires Slurm.")
-        if len(self.children) != 0:
-            raise ValueError("Attempting to submit a Job with children. "
-                             "Interjob relationship requires Slurm.")
         command = "sbatch"
         if submit_options is not None:
             command += " {}".format(submit_options)

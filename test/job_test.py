@@ -27,6 +27,10 @@ srun --srun_option_0=srun_xoption_0 --srun_option_1=srun_xoption_1 executable --
 wait
 """
 
+expected_job_str = "SlurmJob(name=test_str, executable=test_exec, "\
+                   "_slurm_extra_srun_options=['ntasks=1', 'exclusive'],"\
+                   " error=slurm/error, output=slurm/output, submit=slurm/submit)"
+
 
 class TestSlurmJob(unittest.TestCase):
 
@@ -57,3 +61,16 @@ class TestSlurmJob(unittest.TestCase):
         with open("slurm/submit/test_slurmjob_build.submit", "r") as f:
             data = f.read()
         self.assertEqual(data, expected_TestSlurmJob_test_build_output)
+
+    def test_str(self):
+        error = "slurm/error"
+        output = "slurm/output"
+        submit = "slurm/submit"
+
+        job = SlurmJob(name="test_str",
+                       executable="test_exec",
+                       submit=submit,
+                       output=output,
+                       error=error)
+
+        self.assertEqual(str(job), expected_job_str)
