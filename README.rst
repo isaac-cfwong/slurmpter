@@ -4,19 +4,44 @@
 
 ========================================
 
-Slurmpter (Slurm Scripter) is a package to build Slurm submit files of a workflow of jobs easily. The package uses PyCondor_ as the backend. The user interface of slurmpter is very similar to that of PyCondor_ except for some arguments dedicated for Slurm.
+Slurmpter (Slurm Scripter) is a package to build Slurm submit files of a workflow of jobs easily. This package uses PyCondor_ as the backend. The user interface of slurmpter is very similar to that of PyCondor_ except for some arguments dedicated for Slurm.
+
+Documentation
+=============
+
+Documentation of ``slurmpter`` can be found at https://slurmpter.readthedocs.io/en/latest/index.html.
+
+Installation
+============
+
+PyPI
+----
+
+The latest release of ``slurmpter`` can be installed with ``pip``:
+
+.. code-block:: bash
+
+    pip install slurmpter
+
+Conda
+-----
+
+The latest release of ``slurmpter`` can be installed with ``conda``:
+
+.. code-block:: bash
+
+    conda install -c isaac-cfwong slurmpter
 
 Useful Links
-------------
-
-`Documentation Homepage <https://slurmpter.readthedocs.io/en/latest/index.html>`_
-
-`Installation Guide <https://slurmpter.readthedocs.io/en/latest/installation.html>`_
+============
 
 `slurmpter @ GitLab <https://gitlab.com/isaac-cfwong/slurmpter>`_
 
 `slurmpter mirror @ GitHub <https://github.com/isaac-cfwong/slurmpter>`_
 
+`Issue tracker <https://gitlab.com/isaac-cfwong/slurmpter/-/issues>`_
+
+Copyright (c) 2020 Isaac Chun Fung WONG
 
 .. _PyCondor: https://github.com/jrbourbeau/pycondor
 
