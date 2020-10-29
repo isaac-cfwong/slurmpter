@@ -6,8 +6,11 @@
 Slurmpter Home
 ==============
 
-.. |pipeline| image:: https://gitlab.com/isaac-cfwong/slurmpter/badges/master/pipeline.svg
+.. image:: https://gitlab.com/isaac-cfwong/slurmpter/badges/master/pipeline.svg
     :target: https://gitlab.com/isaac-cfwong/slurmpter/commits/master
+
+.. image:: https://gitlab.com/isaac-cfwong/slurmpter/badges/master/coverage.svg
+    :target: https://codecov.io/gl/isaac-cfwong/slurmpter/
 
 .. image:: https://badge.fury.io/py/slurmpter.svg
     :target: https://pypi.org/project/slurmpter/
