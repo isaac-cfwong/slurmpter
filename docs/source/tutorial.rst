@@ -40,7 +40,7 @@ Suppose now you want to submit two jobs with different executables in a batch to
 
 .. code-block:: python
 
-    from slurmpter import Slurm
+    from slurmpter import Slurm, SlurmJob
 
     # Define the job directories to write submit files, standard outputs and standard errors.
     submit = "slurm/submit"
@@ -48,7 +48,7 @@ Suppose now you want to submit two jobs with different executables in a batch to
     error = "slurm/error"
 
     # Construct a Slurm object to hold all the jobs.
-    slurm
+    slurm = Slurm(name="slurm", submit=submit)
     # Construct a SlurmJob object to define the first job.
     job_0 = SlurmJob(name="job_0", executable="<exec_0>", submit=submit, output=output, error=error, slurm=slurm)
     job_0.add_arg("<args_0>")
