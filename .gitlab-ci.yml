@@ -22,6 +22,8 @@ python-3.5:
     stage: test
     image: python:3.5
     script:
+        - apt-get -yqq update
+        - apt-get -yqq install graphviz
         - python -m pip install -U pytest-cov
         - python -m pip install -U coverage-badge
         - python -m pip install -U flake8

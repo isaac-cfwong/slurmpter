@@ -289,3 +289,5 @@ class TestSlurm(unittest.TestCase):
         self.assertEqual(job_3.hasparents(), True)
         self.assertEqual(job_4.haschildren(), False)
         self.assertEqual(job_4.hasparents(), True)
+
+        slurm.visualize("workflow.pdf")
