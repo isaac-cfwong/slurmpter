@@ -9,7 +9,7 @@ def get_long_description():
     return long_description
 
 
-VERSION = "0.1.0"
+VERSION = "1.0.0"
 
 setup(
     name="slurmpter",

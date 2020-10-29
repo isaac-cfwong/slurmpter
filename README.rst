@@ -1,6 +1,6 @@
-|pipeline| |coverage| |pypi| |docs| |license|
-
 .. image:: docs/source/_static/logo.svg
+
+|pipeline| |coverage| |pypi| |docs| |license|
 
 ========================================
 
