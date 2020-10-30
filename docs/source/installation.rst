@@ -40,5 +40,5 @@ The latest development version of ``slurmpter`` can be installed from GitLab:
 Dependencies
 ------------
 
-- `Python <https://www.python.org/>`_ >= 3.4
+- `Python <https://www.python.org/>`_ >= 3.5
 - `pycondor <https://github.com/jrbourbeau/pycondor>`_
