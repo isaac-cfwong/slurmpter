@@ -1,6 +1,6 @@
 .. image:: docs/source/_static/logo.svg
 
-|pipeline| |coverage| |pypi| |docs| |license|
+|pipeline| |coverage| |pypi| |conda| |docs| |license|
 
 ========================================
 
@@ -54,6 +54,9 @@ Copyright (c) 2020 Isaac Chun Fung WONG
 .. |pypi| image:: https://badge.fury.io/py/slurmpter.svg
     :target: https://pypi.org/project/slurmpter/
     :alt: Package on PyPI
+
+.. |conda| image:: https://anaconda.org/conda-forge/slurmpter/badges/version.svg
+    :target: https://anaconda.org/conda-forge/slurmpter
 
 .. |docs| image:: https://readthedocs.org/projects/sphinx/badge/?version=master
     :target: https://slurmpter.readthedocs.io/en/latest/
