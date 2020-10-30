@@ -16,6 +16,9 @@ Slurmpter Home
     :target: https://pypi.org/project/slurmpter/
     :alt: Package on PyPI
 
+.. image:: https://anaconda.org/conda-forge/slurmpter/badges/version.svg
+    :target: https://anaconda.org/conda-forge/slurmpter
+
 .. image:: https://readthedocs.org/projects/sphinx/badge/?version=master
     :target: https://slurmpter.readthedocs.io/en/latest/
 
