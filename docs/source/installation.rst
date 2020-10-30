@@ -24,7 +24,7 @@ The latest release of ``slurmpter`` can be installed with ``conda``:
 
 .. code-block:: bash
 
-     conda install -c isaac-cfwong slurmpter 
+     conda install -c conda-forge slurmpter 
 
 -------------------
 Development Version
